@@ -1,6 +1,9 @@
-const form = document.querySelector("#searchForm");
-form.addEventListener("submit", async function(event) {
+const form = document.querySelector('#searchForm');
+const resultsDiv = document.querySelector('#results');
+
+form.addEventListener('submit', async function(event) {
     event.preventDefault();
+    resultsDiv.innerHTML = ""; //this clears any previous results that are in the results div
     const searchTerm = form.elements.query.value;
     const config = { params: { q: searchTerm} };
     const res = await axios.get(`http://api.tvmaze.com/search/shows`, config);
@@ -14,11 +17,11 @@ const makeImages = (shows) => {
         if(result.show.image) {
             const img = document.createElement("IMG");
             img.src = result.show.image.medium;
-            document.body.append(img);
+            resultsDiv.append(img); //append the images to the resultsDiv 
         }
         
     }
 }
 
 
-//could write a function to clear all the images 
+
